@@ -8,10 +8,21 @@ workflows:
       cocoapods: default
     scripts:
       - name: Get dependencies
-        script: |
-          flutter pub get
-          cd ios && pod install && cd ..
+        script: flutter pub get
       - name: Build iOS
-        script: flutter build ios --debug --no-codesign
+        script: |
+          set -e
+          flutter build ios --debug --no-codesign
+          echo "Build done, listing output:"
+          ls -la build/ios/iphoneos/
+      - name: Package IPA
+        script: |
+          set -e
+          rm -rf Payload unsigned.ipa
+          mkdir Payload
+          cp -R build/ios/iphoneos/Runner.app Payload/
+          zip -r unsigned.ipa Payload
+          rm -rf Payload
+          echo "IPA size: $(ls -lh unsigned.ipa | awk '{print $5}')"
     artifacts:
-      - build/ios/iphoneos/Runner.app
+      - unsigned.ipa
