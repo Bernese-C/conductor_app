@@ -1,0 +1,35 @@
+name: conductor_app
+description: A conducting app that tracks hand gestures to control music tempo and volume.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Camera plugin for capturing video frames
+  camera: ^0.11.0
+  camera_windows: ^0.2.0
+
+  # Google ML Kit — vision APIs including pose detection (iOS/Android)
+  # Uses PoseLandmarkType.rightIndex to track right index finger position
+  google_ml_kit: ^0.19.0
+
+  # Desktop uses in-frame skin-colour hand tracking — no native ML libs needed.
+
+  # State management
+  provider: ^6.1.1
+
+  # Audio playback with speed control
+  audioplayers: ^5.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true

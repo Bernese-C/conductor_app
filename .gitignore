@@ -1,0 +1,14 @@
+.dart_tool/
+.packages
+build/
+*.iml
+.idea/
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+*.lock
+windows/flutter/
+android/local.properties
+android/gradle/wrapper/gradle-wrapper.jar
+ios/Pods/
+ios/.symlinks/
