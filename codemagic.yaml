@@ -7,11 +7,9 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - name: Get dependencies
+      - name: Get Flutter dependencies
         script: flutter pub get
-      - name: Install pods
-        script: cd ios && pod install && cd ..
-      - name: Build iOS
+      - name: Build iOS app
         script: flutter build ios --debug --no-codesign
     artifacts:
       - build/ios/iphoneos/Runner.app
