@@ -11,18 +11,20 @@ workflows:
         script: flutter pub get
       - name: Build iOS
         script: |
-          set -e
           flutter build ios --debug --no-codesign
-          echo "Build done, listing output:"
-          ls -la build/ios/iphoneos/
+          echo "=== App bundle ==="
+          ls build/ios/iphoneos/Runner.app/ | head -20
+          echo "=== Camera permission ==="
+          plutil -p build/ios/iphoneos/Runner.app/Info.plist | grep -i camera
       - name: Package IPA
         script: |
-          set -e
           rm -rf Payload unsigned.ipa
           mkdir Payload
           cp -R build/ios/iphoneos/Runner.app Payload/
-          zip -r unsigned.ipa Payload
+          zip -ry unsigned.ipa Payload
           rm -rf Payload
-          echo "IPA size: $(ls -lh unsigned.ipa | awk '{print $5}')"
+          echo "=== IPA ==="
+          ls -lh unsigned.ipa
+          file unsigned.ipa
     artifacts:
       - unsigned.ipa
